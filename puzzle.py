@@ -49,7 +49,8 @@ def apply_solution(puzzle, solution):
 
 def show_solution(solution, output: io.TextIOWrapper):
     solution_length = len(solution) if solution is not None else -1
-    output.write(f"{solution_length}\n{solution}")
+    moves = solution if solution is not None else ""
+    output.write(f"{solution_length}\n{moves}")
 
 
 def show_puzzle(puzzle, output: io.TextIOWrapper):
