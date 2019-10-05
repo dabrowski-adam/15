@@ -44,8 +44,9 @@ def apply_solution(puzzle, solution):
     raise NotImplementedError
 
 
-def show_solution(solution, strategy, output: io.TextIOWrapper):
-    output.write(f"The {strategy} strategy found the following solution:\n{solution}\n")
+def show_solution(solution, output: io.TextIOWrapper):
+    solution_length = len(solution) if solution is not None else -1
+    output.write(f"{solution_length}\n{solution}")
 
 
 def show_puzzle(puzzle, output: io.TextIOWrapper):
@@ -70,7 +71,7 @@ def main():
     output: io.TextIOWrapper = options["output"]
 
     solution = find_solution(puzzle, strategy, parameter)
-    show_solution(solution, strategy, output)
+    show_solution(solution, output)
 
     #  solved_puzzle = apply_solution(puzzle, solution)
     #  show_puzzle(solved_puzzle, output)
