@@ -49,6 +49,8 @@ def parse(args):
     other_lines = [standard_input.readline() for _ in range(row_count)]
     puzzle = [line.split() for line in other_lines]
 
+    standard_input.close()
+
     return {
         "rows": row_count,
         "columns": column_count,
