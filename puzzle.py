@@ -4,7 +4,7 @@ def find_meaning_of_life_the_universe_and_everything() -> int:
 
 def main():
     answer = find_meaning_of_life_the_universe_and_everything()
-    message = f"The meaning of Lfe, the Universe, and Everything is: {answer}."
+    message = f"The meaning of Life, the Universe, and Everything is: {answer}."
     print(message)
 
 
