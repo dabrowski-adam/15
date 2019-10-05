@@ -27,7 +27,7 @@ def sma(puzzle, heuristic: int):
     raise NotImplementedError
 
 
-def solve(puzzle, strategy, parameter):
+def find_solution(puzzle, strategy, parameter):
     solvers = {
         "bfs": bfs,
         "dfs": dfs,
@@ -40,7 +40,15 @@ def solve(puzzle, strategy, parameter):
     return solvers[strategy](puzzle, parameter)
 
 
-def show(puzzle, output: io.TextIOWrapper):
+def apply_solution(puzzle, solution):
+    raise NotImplementedError
+
+
+def show_solution(solution, strategy, output: io.TextIOWrapper):
+    output.write(f"The {strategy} strategy found the following solution:\n{solution}\n")
+
+
+def show_puzzle(puzzle, output: io.TextIOWrapper):
     output.write("\nSolved puzzle:\n")
     for y in range(len(puzzle)):
         for x in range(len(puzzle[y])):
@@ -56,10 +64,18 @@ def main():
     arguments = sys.argv[1:]
     options = parse(arguments)
 
-    solved_puzzle = solve(options["puzzle"], options["strategy"], options["parameter"])
-    show(solved_puzzle, options["output"])
+    puzzle = options["puzzle"]
+    strategy = options["strategy"]
+    parameter = options["parameter"]
+    output: io.TextIOWrapper = options["output"]
 
-    options["output"].close()
+    solution = find_solution(puzzle, strategy, parameter)
+    show_solution(solution, strategy, output)
+
+    #  solved_puzzle = apply_solution(puzzle, solution)
+    #  show_puzzle(solved_puzzle, output)
+
+    output.close()
 
 
 if __name__ == '__main__':
