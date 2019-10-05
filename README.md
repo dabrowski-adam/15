@@ -1,3 +1,29 @@
+# How to build
+
+1. Use the virtual environment
+
+   ```bash
+   source venv/bin/activate
+   ```
+
+2. Install dependencies
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. If you install new libraries update requirements.txt
+
+   ```bash
+   pip freeze > requirements.txt
+   ```
+
+4. Once you're done you can leave the virtual environment
+
+   ```bash
+   deactivate
+   ```
+
 # Solving problems by searching
 
 ## Fifteen puzzle
@@ -38,9 +64,9 @@ It is expected from each group to present two programs. The first one, verifiabl
 
 ### Command line arguments:
 
-|      |         |                  | Strategy                  |
-| ---- | ------- | ---------------- | ------------------------- |
 | -b   | --bfs   | *order*          | Breadth-first search      |
+| ---- | ------- | ---------------- | ------------------------- |
+|      |         |                  | Strategy                  |
 | -d   | --dfs   | *order*          | Depth-first search        |
 | -i   | --idfs  | *order*          | Iterative deepenening DFS |
 | -h   | --bf    | *id_of_heurisic* | Best-first strategy       |
