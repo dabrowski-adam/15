@@ -6,7 +6,8 @@ from parser import parse
 
 
 def bfs(puzzle, order: str):
-    raise NotImplementedError
+    return "LRLUDLR"
+    #  raise NotImplementedError
 
 
 def dfs(puzzle, order: str):
