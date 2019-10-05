@@ -14,22 +14,24 @@ def parse_args(args):
         "--input",
         type=argparse.FileType("r"),
         default=sys.stdin,
-        help="File to read from instead of stdin",
+        help="file to read from instead of stdin",
+        metavar="FILE",
     )
     parser.add_argument(
         "--output",
         type=argparse.FileType("w"),
         default=sys.stdout,
-        help="File to write to instead of stdout",
+        help="file to write to instead of stdout",
+        metavar="FILE",
     )
 
-    parser.add_argument("-b", "--bfs", help="breadth-first search")
-    parser.add_argument("-d", "--dfs", help="depth-first search")
-    parser.add_argument("-i", "--idfs", help="iterative deepening DFS")
+    parser.add_argument("-b", "--bfs", help="breadth-first search", metavar="ORDER")
+    parser.add_argument("-d", "--dfs", help="depth-first search", metavar="ORDER")
+    parser.add_argument("-i", "--idfs", help="iterative deepening DFS", metavar="ORDER")
 
-    parser.add_argument("-h", "--bf", type=int, help="best-first strategy")
-    parser.add_argument("-a", "--astar", type=int, help="A* strategy")
-    parser.add_argument("-s", "--sma", type=int, help="SMA* strategy")
+    parser.add_argument("-h", "--bf", type=int, help="best-first strategy", metavar="HEURISTIC")
+    parser.add_argument("-a", "--astar", type=int, help="A* strategy", metavar="HEURISTIC")
+    parser.add_argument("-s", "--sma", type=int, help="SMA* strategy", metavar="HEURISTIC")
 
     return parser.parse_args(args)
 
