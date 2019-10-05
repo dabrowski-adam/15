@@ -2,9 +2,15 @@
 
 Scroll down to the command line arguments table.
 
-You can use sample_input.txt instead of writing data in the terminal.
+You can use sample_input.txt instead of manually writing data in a terminal.
 
+```bash
+./puzzle.py --input=sample_input.txt
 ```
+
+Or just pipe the data:
+
+```bash
 cat sample_input.txt | ./puzzle.py
 ```
 
