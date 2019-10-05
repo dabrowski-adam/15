@@ -8,17 +8,28 @@ DEFAULT_STRATEGY = ("bfs", "R")
 
 def parse_args(args):
     parser = argparse.ArgumentParser(description="Puzzle solver.", add_help=False)
+    parser.add_argument("--help", action="help", help="show this help message and exit")
 
-    parser.add_argument("--input", type=argparse.FileType("r"), default=sys.stdin)
-    parser.add_argument("--output", type=argparse.FileType("w"), default=sys.stdout)
+    parser.add_argument(
+        "--input",
+        type=argparse.FileType("r"),
+        default=sys.stdin,
+        help="File to read from instead of stdin",
+    )
+    parser.add_argument(
+        "--output",
+        type=argparse.FileType("w"),
+        default=sys.stdout,
+        help="File to write to instead of stdout",
+    )
 
-    parser.add_argument("-b", "--bfs")
-    parser.add_argument("-d", "--dfs")
-    parser.add_argument("-i", "--idfs")
+    parser.add_argument("-b", "--bfs", help="breadth-first search")
+    parser.add_argument("-d", "--dfs", help="depth-first search")
+    parser.add_argument("-i", "--idfs", help="iterative deepening DFS")
 
-    parser.add_argument("-h", "--bf", type=int)
-    parser.add_argument("-a", "--astar", type=int)
-    parser.add_argument("-s", "--sma", type=int)
+    parser.add_argument("-h", "--bf", type=int, help="best-first strategy")
+    parser.add_argument("-a", "--astar", type=int, help="A* strategy")
+    parser.add_argument("-s", "--sma", type=int, help="SMA* strategy")
 
     return parser.parse_args(args)
 
@@ -43,9 +54,7 @@ def parse(args):
     standard_output: io.TextIOWrapper = options["output"]
 
     first_line = standard_input.readline()  # two integer values "R C"
-    row_count, column_count = [
-        int(string) for string in first_line.split()
-    ]
+    row_count, column_count = [int(string) for string in first_line.split()]
     other_lines = [standard_input.readline() for _ in range(row_count)]
     puzzle = [line.split() for line in other_lines]
 
