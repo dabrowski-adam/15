@@ -64,9 +64,9 @@ It is expected from each group to present two programs. The first one, verifiabl
 
 ### Command line arguments:
 
-| -b   | --bfs   | *order*          | Breadth-first search      |
-| ---- | ------- | ---------------- | ------------------------- |
 |      |         |                  | Strategy                  |
+| ---- | ------- | ---------------- | ------------------------- |
+| -b   | --bfs   | *order*          | Breadth-first search      |
 | -d   | --dfs   | *order*          | Depth-first search        |
 | -i   | --idfs  | *order*          | Iterative deepenening DFS |
 | -h   | --bf    | *id_of_heurisic* | Best-first strategy       |
