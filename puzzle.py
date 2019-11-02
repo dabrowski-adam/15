@@ -3,6 +3,7 @@
 import sys
 import io
 from parser import parse
+from copy import deepcopy
 
 
 def bfs(puzzle, order: str):
@@ -43,7 +44,13 @@ def find_solution(puzzle, strategy, parameter):
     return solvers[strategy](puzzle, parameter)
 
 
-def apply_move(puzzle, mov):
+def _swap_puzzle_pieces(puzzle, y1, x1, y2, x2):
+    updated_puzzle = deepcopy(puzzle)
+    updated_puzzle[y1][x1], updated_puzzle[y2][x2] = updated_puzzle[y2][x2], updated_puzzle[y1][x1]
+    return updated_puzzle
+
+
+def apply_move(puzzle, move):
     raise NotImplementedError
 
 
