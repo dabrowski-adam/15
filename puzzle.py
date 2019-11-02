@@ -59,7 +59,13 @@ def apply_move(puzzle, move):
         else (y1 + 1, x1) if move == "U"\
         else (y1 - 1, x1)
 
-    return _swap_puzzle_pieces(puzzle, y1, x1, y2, x2)
+    max_y = len(puzzle) - 1
+    max_x = len(puzzle[0]) - 1
+
+    safe_y2 = min(max(y2, 0), max_y)
+    safe_x2 = min(max(x2, 0), max_x)
+
+    return _swap_puzzle_pieces(puzzle, y1, x1, safe_y2, safe_x2)
 
 
 def apply_solution(puzzle, solution):
