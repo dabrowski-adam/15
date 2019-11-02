@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
 from puzzle import find_meaning_of_life_the_universe_and_everything, show_solution, apply_solution, apply_move, \
-    _swap_puzzle_pieces
+    swap_puzzle_pieces
 
 
 def test_find_meaning_of_life_the_universe_and_everything():
@@ -97,4 +97,4 @@ swap_puzzle_pieces_test_data = [
 
 @pytest.mark.parametrize("puzzle,y1,x1,y2,x2,expected", swap_puzzle_pieces_test_data)
 def test_swap_puzzle_pieces(puzzle, y1, x1, y2, x2, expected):
-    assert _swap_puzzle_pieces(puzzle, y1, x1, y2, x2) == expected
+    assert swap_puzzle_pieces(puzzle, y1, x1, y2, x2) == expected

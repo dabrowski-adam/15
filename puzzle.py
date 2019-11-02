@@ -44,7 +44,7 @@ def find_solution(puzzle, strategy, parameter):
     return solvers[strategy](puzzle, parameter)
 
 
-def _swap_puzzle_pieces(puzzle, y1, x1, y2, x2):
+def swap_puzzle_pieces(puzzle, y1, x1, y2, x2):
     updated_puzzle = deepcopy(puzzle)
     updated_puzzle[y1][x1], updated_puzzle[y2][x2] = updated_puzzle[y2][x2], updated_puzzle[y1][x1]
     return updated_puzzle
@@ -65,7 +65,7 @@ def apply_move(puzzle, move):
     safe_y2 = min(max(y2, 0), max_y)
     safe_x2 = min(max(x2, 0), max_x)
 
-    return _swap_puzzle_pieces(puzzle, y1, x1, safe_y2, safe_x2)
+    return swap_puzzle_pieces(puzzle, y1, x1, safe_y2, safe_x2)
 
 
 def apply_solution(puzzle, solution):
