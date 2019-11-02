@@ -2,8 +2,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from puzzle import find_meaning_of_life_the_universe_and_everything, show_solution, apply_solution, apply_move, \
-    swap_puzzle_pieces
+from puzzle_utils import find_meaning_of_life_the_universe_and_everything, \
+    swap_puzzle_pieces, apply_move, apply_solution, show_solution
 
 
 def test_find_meaning_of_life_the_universe_and_everything():
@@ -35,13 +35,6 @@ sample_puzzle_l = [
     [1, 9, 2, 7],
     [8, 12, 0, 10],
     [13, 3, 6, 4],
-    [15, 14, 11, 5]
-]
-
-sample_puzzle_lurd = [
-    [1, 9, 2, 7],
-    [8, 0, 6, 10],
-    [13, 12, 3, 4],
     [15, 14, 11, 5]
 ]
 
@@ -92,6 +85,13 @@ apply_move_test_data = [
 def test_apply_move(puzzle, move, expected):
     assert apply_move(puzzle, move) == expected
 
+
+sample_puzzle_lurd = [
+    [1, 9, 2, 7],
+    [8, 0, 6, 10],
+    [13, 12, 3, 4],
+    [15, 14, 11, 5]
+]
 
 apply_solution_test_data = [
     *apply_move_test_data,
