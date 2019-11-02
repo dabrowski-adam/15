@@ -4,6 +4,7 @@ import sys
 import io
 from parser import parse
 from copy import deepcopy
+from functools import reduce
 
 
 def bfs(puzzle, order: str):
@@ -69,7 +70,7 @@ def apply_move(puzzle, move):
 
 
 def apply_solution(puzzle, solution):
-    raise NotImplementedError
+    return reduce(apply_move, solution, puzzle)
 
 
 def show_solution(solution, output: io.TextIOWrapper):
