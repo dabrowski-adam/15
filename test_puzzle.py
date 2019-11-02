@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import Mock
-from puzzle import find_meaning_of_life_the_universe_and_everything, show_solution, apply_move, _swap_puzzle_pieces
+from puzzle import find_meaning_of_life_the_universe_and_everything, show_solution, apply_solution, apply_move, \
+    _swap_puzzle_pieces
 
 
 def test_find_meaning_of_life_the_universe_and_everything():
@@ -35,6 +36,13 @@ sample_puzzle_l = [
     [15, 14, 11, 5]
 ]
 
+sample_puzzle_lurd = [
+    [1, 9, 2, 7],
+    [8, 0, 6, 10],
+    [13, 12, 3, 4],
+    [15, 14, 11, 5]
+]
+
 sample_puzzle_r = [
     [1, 9, 2, 7],
     [0, 8, 12, 10],
@@ -57,6 +65,16 @@ sample_puzzle_d = [
 ]
 
 apply_solution_test_data = [
+    (sample_puzzle, 'LURD', sample_puzzle_lurd),
+]
+
+
+@pytest.mark.parametrize("puzzle,solution,expected", apply_solution_test_data)
+def test_apply_solution(puzzle, solution, expected):
+    assert apply_solution(puzzle, solution) == expected
+
+
+apply_move_test_data = [
     (sample_puzzle, 'L', sample_puzzle_l),
     (sample_puzzle, 'R', sample_puzzle_r),
     (sample_puzzle, 'U', sample_puzzle_u),
@@ -64,7 +82,7 @@ apply_solution_test_data = [
 ]
 
 
-@pytest.mark.parametrize("puzzle,move,expected", apply_solution_test_data)
+@pytest.mark.parametrize("puzzle,move,expected", apply_move_test_data)
 def test_apply_move(puzzle, move, expected):
     assert apply_move(puzzle, move) == expected
 
