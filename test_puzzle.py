@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import Mock
+
+import pytest
 from puzzle import find_meaning_of_life_the_universe_and_everything, show_solution, apply_solution, apply_move, \
     swap_puzzle_pieces
 
@@ -19,7 +20,7 @@ show_solution_test_data = [
 def test_show_solution(solution, expected):
     output = Mock()
     show_solution(solution, output)
-    output.write.assert_called_with(expected)
+    output.write.assert_called_once_with(expected)
 
 
 sample_puzzle = [
@@ -64,29 +65,6 @@ sample_puzzle_d = [
     [15, 14, 11, 5]
 ]
 
-apply_solution_test_data = [
-    (sample_puzzle, 'LURD', sample_puzzle_lurd),
-]
-
-
-@pytest.mark.parametrize("puzzle,solution,expected", apply_solution_test_data)
-def test_apply_solution(puzzle, solution, expected):
-    assert apply_solution(puzzle, solution) == expected
-
-
-apply_move_test_data = [
-    (sample_puzzle, 'L', sample_puzzle_l),
-    (sample_puzzle, 'R', sample_puzzle_r),
-    (sample_puzzle, 'U', sample_puzzle_u),
-    (sample_puzzle, 'D', sample_puzzle_d),
-]
-
-
-@pytest.mark.parametrize("puzzle,move,expected", apply_move_test_data)
-def test_apply_move(puzzle, move, expected):
-    assert apply_move(puzzle, move) == expected
-
-
 swap_puzzle_pieces_test_data = [
     [sample_puzzle, 1, 2, 1, 1, sample_puzzle_l],
     [sample_puzzle, 1, 0, 1, 1, sample_puzzle_r],
@@ -98,3 +76,28 @@ swap_puzzle_pieces_test_data = [
 @pytest.mark.parametrize("puzzle,y1,x1,y2,x2,expected", swap_puzzle_pieces_test_data)
 def test_swap_puzzle_pieces(puzzle, y1, x1, y2, x2, expected):
     assert swap_puzzle_pieces(puzzle, y1, x1, y2, x2) == expected
+
+
+apply_move_test_data = [
+    (sample_puzzle_r, "R", sample_puzzle_r),
+    (sample_puzzle, "L", sample_puzzle_l),
+    (sample_puzzle, "R", sample_puzzle_r),
+    (sample_puzzle, "U", sample_puzzle_u),
+    (sample_puzzle, "D", sample_puzzle_d),
+]
+
+
+@pytest.mark.parametrize("puzzle,move,expected", apply_move_test_data)
+def test_apply_move(puzzle, move, expected):
+    assert apply_move(puzzle, move) == expected
+
+
+apply_solution_test_data = [
+    *apply_move_test_data,
+    (sample_puzzle, "LURD", sample_puzzle_lurd),
+]
+
+
+@pytest.mark.parametrize("puzzle,solution,expected", apply_solution_test_data)
+def test_apply_solution(puzzle, solution, expected):
+    assert apply_solution(puzzle, solution) == expected
