@@ -51,7 +51,15 @@ def _swap_puzzle_pieces(puzzle, y1, x1, y2, x2):
 
 
 def apply_move(puzzle, move):
-    raise NotImplementedError
+    zero_pos, = [(y, row.index(0)) for y, row in enumerate(puzzle) if 0 in row]
+    y1, x1 = zero_pos
+
+    y2, x2 = (y1, x1 + 1) if move == "L"\
+        else (y1, x1 - 1) if move == "R"\
+        else (y1 + 1, x1) if move == "U"\
+        else (y1 - 1, x1)
+
+    return _swap_puzzle_pieces(puzzle, y1, x1, y2, x2)
 
 
 def apply_solution(puzzle, solution):
