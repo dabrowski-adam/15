@@ -43,6 +43,10 @@ def find_solution(puzzle, strategy, parameter):
     return solvers[strategy](puzzle, parameter)
 
 
+def apply_move(puzzle, mov):
+    raise NotImplementedError
+
+
 def apply_solution(puzzle, solution):
     raise NotImplementedError
 
