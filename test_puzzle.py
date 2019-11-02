@@ -1,6 +1,7 @@
 from unittest.mock import Mock
 
 import pytest
+
 from puzzle import find_meaning_of_life_the_universe_and_everything, show_solution, apply_solution, apply_move, \
     swap_puzzle_pieces
 
