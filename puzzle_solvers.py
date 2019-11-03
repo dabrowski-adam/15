@@ -36,8 +36,9 @@ class StateVertex:
     def __iter__(self):
         return StateVertexIterator(self)
 
-    def neighbors(self, order="LRUD", random=False):
-        moves = order if not random else random_order()
+    def neighbors(self, order="R"):
+        is_random = len(order) != 4
+        moves = order if not is_random else random_order()
         return [StateVertex(apply_move(self.puzzle, move), parent=self, move=move) for move in moves]
 
     def is_solved(self):
@@ -50,8 +51,6 @@ class StateVertex:
 
 
 def bfs(puzzle, order: str):
-    is_random = len(order) != 4
-
     root = StateVertex(puzzle)
     visited, stack = {root}, deque([root])
 
@@ -60,7 +59,7 @@ def bfs(puzzle, order: str):
         if vertex.is_solved():
             return vertex.path()
 
-        for neighbor in vertex.neighbors(order, random=is_random):
+        for neighbor in vertex.neighbors(order):
             if neighbor not in visited:
                 visited.add(neighbor)
                 stack.append(neighbor)
