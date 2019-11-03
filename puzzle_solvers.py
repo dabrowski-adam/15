@@ -64,6 +64,8 @@ def bfs(puzzle, order: str):
                 visited.add(neighbor)
                 stack.append(neighbor)
 
+    return None
+
 
 def dfs(puzzle, order: str):
     raise NotImplementedError
