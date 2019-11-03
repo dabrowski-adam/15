@@ -3,7 +3,7 @@ from unittest.mock import Mock
 import pytest
 
 from puzzle_utils import find_meaning_of_life_the_universe_and_everything, \
-    swap_puzzle_pieces, apply_move, apply_solution, show_solution
+    swap_puzzle_pieces, apply_move, apply_solution, show_solution, is_solved
 
 
 def test_find_meaning_of_life_the_universe_and_everything():
@@ -102,3 +102,21 @@ apply_solution_test_data = [
 @pytest.mark.parametrize("puzzle,solution,expected", apply_solution_test_data)
 def test_apply_solution(puzzle, solution, expected):
     assert apply_solution(puzzle, solution) == expected
+
+
+solved_puzzle = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+    [13, 14, 15, 0]
+]
+
+is_solved_test_data = [
+    [sample_puzzle, False],
+    [solved_puzzle, True]
+]
+
+
+@pytest.mark.parametrize("puzzle,expected", is_solved_test_data)
+def test_is_solved(puzzle, expected):
+    assert is_solved(puzzle) == expected

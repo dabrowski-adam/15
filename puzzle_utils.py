@@ -35,6 +35,15 @@ def apply_solution(puzzle, solution):
     return reduce(apply_move, solution, puzzle)
 
 
+def is_solved(puzzle):
+    raise NotImplementedError
+
+
+def check_solution(puzzle, solution):
+    solved_puzzle = apply_solution(puzzle, solution)
+    assert is_solved(solved_puzzle)
+
+
 def show_solution(solution, output: io.TextIOWrapper):
     solution_length = len(solution) if solution is not None else -1
     moves = solution if solution is not None else ""
