@@ -2,6 +2,7 @@ from collections import deque
 from random import shuffle
 
 from puzzle_utils import is_solved, apply_move
+from utils import first_true
 
 
 class StateVertexIterator:
@@ -71,8 +72,24 @@ def dfs(puzzle, order: str):
     raise NotImplementedError
 
 
-def idfs(puzzle, order: str):
-    raise NotImplementedError
+def dls(vertex, depth, order="R"):
+    if depth == 0:
+        return (vertex, True) if vertex.is_solved() else (None, True)
+
+    results = [dls(neighbor, depth - 1) for neighbor in vertex.neighbors(order)]
+    found, remaining = zip(*results)
+    return first_true(found, default=None), first_true(remaining)
+
+
+def idfs(puzzle, order: str, max_depth=30):
+    root = StateVertex(puzzle)
+
+    for depth in range(max_depth + 1):
+        found, remaining = dls(root, depth, order=order)
+        if found:
+            return found.path()
+        elif not remaining:
+            return None
 
 
 def bf(puzzle, heuristic: int):

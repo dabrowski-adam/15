@@ -21,3 +21,10 @@ def test_bfs(puzzle, expected):
     solution = bfs(puzzle, "R")
     assert solution == expected
     assert check_solution(puzzle, solution)
+
+
+@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+def test_idfs(puzzle, expected):
+    solution = idfs(puzzle, "R")
+    assert solution == expected
+    assert check_solution(puzzle, solution)
