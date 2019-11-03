@@ -11,40 +11,40 @@ solvable_puzzle_lul = [
     [13, 14, 11, 15]
 ]
 
-bfs_test_data = [
+test_data = [
     [solvable_puzzle_lul, "LUL"]
 ]
 
 
-@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+@pytest.mark.parametrize("puzzle,expected", test_data)
 def test_bfs(puzzle, expected):
     solution = bfs(puzzle, "R")
     assert solution == expected
     assert check_solution(puzzle, solution)
 
 
-@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+@pytest.mark.parametrize("puzzle,expected", test_data)
 def test_idfs(puzzle, expected):
     solution = idfs(puzzle, "R")
     assert solution == expected
     assert check_solution(puzzle, solution)
 
 
-@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+@pytest.mark.parametrize("puzzle,expected", test_data)
 def test_astar_dijkstra(puzzle, expected):
     solution = astar(puzzle, DIJKSTRA)
     assert solution == expected
     assert check_solution(puzzle, solution)
 
 
-@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+@pytest.mark.parametrize("puzzle,expected", test_data)
 def test_astar_hamming(puzzle, expected):
     solution = astar(puzzle, HAMMING)
     assert solution == expected
     assert check_solution(puzzle, solution)
 
 
-@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+@pytest.mark.parametrize("puzzle,expected", test_data)
 def test_astar_manhattan(puzzle, expected):
     solution = astar(puzzle, MANHATTAN)
     assert solution == expected

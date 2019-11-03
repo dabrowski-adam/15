@@ -3,57 +3,14 @@ from collections import deque
 from functools import reduce
 from itertools import chain
 from math import inf
-from random import shuffle
 
-from puzzle_utils import is_solved, apply_move
+from state_vertex import StateVertex
 from utils import first_true
 
 
-class StateVertexIterator:
-    def __init__(self, vertex):
-        self.vertex = vertex
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        vertex = self.vertex
-
-        if vertex:
-            self.vertex = vertex.parent
-            return vertex
-
-        raise StopIteration
-
-
-def random_order():
-    moves = "LRUD".split()
-    shuffle(moves)
-    return "".join(moves)
-
-
-class StateVertex:
-    def __init__(self, puzzle, parent=None, move=None):
-        self.puzzle = puzzle
-        self.parent = parent
-        self.move = move
-
-    def __iter__(self):
-        return StateVertexIterator(self)
-
-    def neighbors(self, order="R"):
-        is_random = len(order) != 4
-        moves = order if not is_random else random_order()
-        return [StateVertex(apply_move(self.puzzle, move), parent=self, move=move) for move in moves]
-
-    def is_solved(self):
-        return is_solved(self.puzzle)
-
-    def path(self):
-        moves = [parent.move for parent in self][:-1]  # Remove last because root vertex has no move
-        moves.reverse()
-        return "".join(moves)
-
+# # # # # # # # # # # # #
+# breadth-first search
+#
 
 def bfs(puzzle, order: str):
     root = StateVertex(puzzle)
@@ -72,15 +29,23 @@ def bfs(puzzle, order: str):
     return None
 
 
+# # # # # # # # # # # # #
+# depth-first search
+#
+
 def dfs(puzzle, order: str):
     raise NotImplementedError
 
 
-def dls(vertex, depth, order="R"):
+# # # # # # # # # # # # #
+# iterative deepening DFS
+#
+
+def _dls(vertex, depth, order="R"):
     if depth == 0:
         return (vertex, True) if vertex.is_solved() else (None, True)
 
-    results = [dls(neighbor, depth - 1) for neighbor in vertex.neighbors(order)]
+    results = [_dls(neighbor, depth - 1) for neighbor in vertex.neighbors(order)]
     found, remaining = zip(*results)
     return first_true(found, default=None), first_true(remaining)
 
@@ -89,16 +54,24 @@ def idfs(puzzle, order: str, max_depth=30):
     root = StateVertex(puzzle)
 
     for depth in range(max_depth + 1):
-        found, remaining = dls(root, depth, order=order)
+        found, remaining = _dls(root, depth, order=order)
         if found:
             return found.path()
         elif not remaining:
             return None
 
 
+# # # # # # # # # # # # #
+# best-first
+#
+
 def bf(puzzle, heuristic: int):
     raise NotImplementedError
 
+
+# # # # # # # # # # # # #
+# A*
+#
 
 def _d(current, neighbor):
     return len(neighbor.path())
@@ -126,7 +99,6 @@ def _distance(p1, p2):
     return abs(y1 - y2) + abs(x1 - x2)
 
 
-# sum of Manhattan distances between pieces and goal
 def _manhattan(vertex: StateVertex):
     puzzle = vertex.puzzle
     rows = len(puzzle)
@@ -185,6 +157,10 @@ def astar(puzzle, heuristic: int):
 
     return None
 
+
+# # # # # # # # # # # # #
+# SMA*
+#
 
 def sma(puzzle, heuristic: int):
     raise NotImplementedError
