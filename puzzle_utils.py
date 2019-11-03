@@ -1,6 +1,7 @@
 import io
 from copy import deepcopy
 from functools import reduce
+from itertools import chain
 
 
 def find_meaning_of_life_the_universe_and_everything() -> int:
@@ -36,7 +37,9 @@ def apply_solution(puzzle, solution):
 
 
 def is_solved(puzzle):
-    raise NotImplementedError
+    pieces = len(puzzle) * len(puzzle[0])
+    solved = [*range(1, pieces), 0]
+    return list(chain(*puzzle)) == solved
 
 
 def check_solution(puzzle, solution):
