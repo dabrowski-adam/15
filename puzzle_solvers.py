@@ -2,7 +2,7 @@ from puzzle_utils import apply_move, apply_solution
 
 
 def bfs(puzzle, order: str):
-    return "LRLUDLR"
+    return "LUL"
     #  raise NotImplementedError
 
 

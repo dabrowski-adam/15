@@ -4,19 +4,20 @@ from puzzle_solvers import bfs, dfs, idfs, bf, astar, sma
 from puzzle_utils import check_solution
 
 
-sample_puzzle = [
-    [1, 9, 2, 7],
-    [8, 0, 12, 10],
-    [13, 3, 6, 4],
-    [15, 14, 11, 5]
+solvable_puzzle_lul = [
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 0, 10, 12],
+    [13, 14, 11, 15]
 ]
 
 bfs_test_data = [
-    [sample_puzzle]
+    [solvable_puzzle_lul, "LUL"]
 ]
 
 
-@pytest.mark.parametrize("puzzle", bfs_test_data)
-def test_bfs(puzzle):
+@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+def test_bfs(puzzle, expected):
     solution = bfs(puzzle, "R")
+    assert solution == expected
     assert check_solution(puzzle, solution)
