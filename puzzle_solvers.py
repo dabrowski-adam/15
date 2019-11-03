@@ -45,7 +45,7 @@ class StateVertex:
         return is_solved(self.puzzle)
 
     def path(self):
-        moves = [parent.move for parent in self][:-1]
+        moves = [parent.move for parent in self][:-1]  # Remove last because root vertex has no move
         moves.reverse()
         return "".join(moves)
 
