@@ -93,9 +93,17 @@ sample_puzzle_lurd = [
     [15, 14, 11, 5]
 ]
 
+sample_puzzle_lrludlr = [
+    [1, 9, 2, 7],
+    [8, 12, 0, 10],
+    [13, 3, 6, 4],
+    [15, 14, 11, 5]
+]
+
 apply_solution_test_data = [
     *apply_move_test_data,
     (sample_puzzle, "LURD", sample_puzzle_lurd),
+    (sample_puzzle, "LRLUDLR", sample_puzzle_lrludlr),
 ]
 
 
