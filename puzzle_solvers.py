@@ -3,6 +3,7 @@ from random import shuffle
 from collections import defaultdict
 from math import inf
 from functools import reduce
+from itertools import chain
 
 from puzzle_utils import is_solved, apply_move
 from utils import first_true
@@ -103,17 +104,24 @@ def _d(current, neighbor):
     return len(neighbor.path())
 
 
-def _dijkstra(vertex):
+def _dijkstra(vertex: StateVertex):
     return 0
 
 
-# number of blocks out of place
-def _hamming(vertex):
-    return 0
+# number of pieces out of place
+def _hamming(vertex: StateVertex):
+    puzzle = vertex.puzzle
+    pieces = len(puzzle) * len(puzzle[0])
+
+    solved = [*range(1, pieces), 0]
+    current = list(chain(*puzzle))
+
+    mismatches = [(a, b) for (a, b) in zip(solved, current) if a != b]
+    return len(mismatches)
 
 
-# sum of Manhattan distances between blocks and goal
-def _manhattan(vertex):
+# sum of Manhattan distances between pieces and goal
+def _manhattan(vertex: StateVertex):
     return 0
 
 
