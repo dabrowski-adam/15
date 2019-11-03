@@ -1,4 +1,5 @@
 from collections import deque
+from random import shuffle
 
 from puzzle_utils import is_solved, apply_move
 
@@ -20,6 +21,12 @@ class StateVertexIterator:
         raise StopIteration
 
 
+def random_order():
+    moves = "LRUD".split()
+    shuffle(moves)
+    return "".join(moves)
+
+
 class StateVertex:
     def __init__(self, puzzle, parent=None, move=None):
         self.puzzle = puzzle
@@ -29,8 +36,9 @@ class StateVertex:
     def __iter__(self):
         return StateVertexIterator(self)
 
-    def neighbors(self, order="LRUD"):
-        return [StateVertex(apply_move(self.puzzle, move), parent=self, move=move) for move in order]
+    def neighbors(self, order="LRUD", random=False):
+        moves = order if not random else random_order()
+        return [StateVertex(apply_move(self.puzzle, move), parent=self, move=move) for move in moves]
 
     def is_solved(self):
         return is_solved(self.puzzle)
@@ -42,6 +50,8 @@ class StateVertex:
 
 
 def bfs(puzzle, order: str):
+    is_random = len(order) != 4
+
     root = StateVertex(puzzle)
     visited, stack = {root}, deque([root])
 
@@ -50,7 +60,7 @@ def bfs(puzzle, order: str):
         if vertex.is_solved():
             return vertex.path()
 
-        for neighbor in vertex.neighbors():
+        for neighbor in vertex.neighbors(order, random=is_random):
             if neighbor not in visited:
                 visited.add(neighbor)
                 stack.append(neighbor)
