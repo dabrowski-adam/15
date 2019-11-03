@@ -1,9 +1,9 @@
-from collections import deque
-from random import shuffle
 from collections import defaultdict
-from math import inf
+from collections import deque
 from functools import reduce
 from itertools import chain
+from math import inf
+from random import shuffle
 
 from puzzle_utils import is_solved, apply_move
 from utils import first_true
@@ -120,9 +120,27 @@ def _hamming(vertex: StateVertex):
     return len(mismatches)
 
 
+def _distance(p1, p2):
+    y1, x1 = p1
+    y2, x2 = p2
+    return abs(y1 - y2) + abs(x1 - x2)
+
+
 # sum of Manhattan distances between pieces and goal
 def _manhattan(vertex: StateVertex):
-    return 0
+    puzzle = vertex.puzzle
+    rows = len(puzzle)
+    columns = len(puzzle[0])
+
+    solved = [*range(1, rows * columns), 0]
+    current = list(chain(*puzzle))
+
+    positions = [(i // rows, i % columns) for i in range(rows * columns)]
+    current_positions = dict(zip(current, positions))
+    solved_positions = dict(zip(solved, positions))
+
+    distances = [_distance(current_positions[n], solved_positions[n]) for n in range(rows * columns)]
+    return sum(distances)
 
 
 DIJKSTRA, HAMMING, MANHATTAN = 0, 1, 2
