@@ -44,7 +44,7 @@ def is_solved(puzzle):
 
 def check_solution(puzzle, solution):
     solved_puzzle = apply_solution(puzzle, solution)
-    assert is_solved(solved_puzzle)
+    return is_solved(solved_puzzle)
 
 
 def show_solution(solution, output: io.TextIOWrapper):
