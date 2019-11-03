@@ -1,6 +1,6 @@
 import pytest
 
-from puzzle_solvers import bfs, dfs, idfs, bf, astar, sma
+from puzzle_solvers import bfs, dfs, idfs, bf, astar, sma, DIJKSTRA, HAMMING, MANHATTAN
 from puzzle_utils import check_solution
 
 
@@ -26,5 +26,26 @@ def test_bfs(puzzle, expected):
 @pytest.mark.parametrize("puzzle,expected", bfs_test_data)
 def test_idfs(puzzle, expected):
     solution = idfs(puzzle, "R")
+    assert solution == expected
+    assert check_solution(puzzle, solution)
+
+
+@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+def test_astar_dijkstra(puzzle, expected):
+    solution = astar(puzzle, DIJKSTRA)
+    assert solution == expected
+    assert check_solution(puzzle, solution)
+
+
+@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+def test_astar_hamming(puzzle, expected):
+    solution = astar(puzzle, HAMMING)
+    assert solution == expected
+    assert check_solution(puzzle, solution)
+
+
+@pytest.mark.parametrize("puzzle,expected", bfs_test_data)
+def test_astar_manhattan(puzzle, expected):
+    solution = astar(puzzle, MANHATTAN)
     assert solution == expected
     assert check_solution(puzzle, solution)

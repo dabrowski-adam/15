@@ -1,5 +1,8 @@
 from collections import deque
 from random import shuffle
+from collections import defaultdict
+from math import inf
+from functools import reduce
 
 from puzzle_utils import is_solved, apply_move
 from utils import first_true
@@ -96,8 +99,65 @@ def bf(puzzle, heuristic: int):
     raise NotImplementedError
 
 
+def _d(current, neighbor):
+    return len(neighbor.path())
+
+
+def _dijkstra(vertex):
+    return 0
+
+
+# number of blocks out of place
+def _hamming(vertex):
+    return 0
+
+
+# sum of Manhattan distances between blocks and goal
+def _manhattan(vertex):
+    return 0
+
+
+DIJKSTRA, HAMMING, MANHATTAN = 0, 1, 2
+
+heuristics = {
+    DIJKSTRA: _dijkstra,
+    HAMMING: _hamming,
+    MANHATTAN: _manhattan
+}
+
+
 def astar(puzzle, heuristic: int):
-    raise NotImplementedError
+    h = heuristics[heuristic]
+    root = StateVertex(puzzle)
+
+    open_set = {root}
+    # came_from = {}
+
+    gscore = defaultdict(lambda: inf)
+    gscore[root] = 0
+
+    fscore = defaultdict(lambda: inf)
+    fscore[root] = h(root)
+
+    while open_set:
+        current = reduce(lambda a, b: b if fscore[b] < fscore[a] else a, open_set)
+
+        if current.is_solved():
+            return current.path()
+
+        open_set.remove(current)
+
+        for neighbor in current.neighbors():
+            tentative_gscore = gscore[current] + _d(current, neighbor)
+
+            if tentative_gscore < gscore[neighbor]:
+                gscore[neighbor] = tentative_gscore
+                fscore[neighbor] = gscore[neighbor] + h(neighbor)
+
+                if neighbor not in open_set:
+                    open_set.add(neighbor)
+
+    return None
 
 
 def sma(puzzle, heuristic: int):
