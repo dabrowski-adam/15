@@ -1,7 +1,6 @@
 import argparse
-import sys
 import io
-
+import sys
 
 DEFAULT_STRATEGY = ("bfs", "R")
 
@@ -30,7 +29,7 @@ def parse_args(args):
     parser.add_argument("-i", "--idfs", help="iterative deepening DFS", metavar="ORDER")
 
     parser.add_argument("-h", "--bf", type=int, help="best-first strategy", metavar="HEURISTIC")
-    parser.add_argument("-a", "--astar", type=int, help="A* strategy", metavar="HEURISTIC")
+    parser.add_argument("-a", "--astar", type=int, help="A* strategy {0: Dijkstra, 1: Hamming, 2: Manhattan}", metavar="HEURISTIC", choices=[0, 1, 2])
     parser.add_argument("-s", "--sma", type=int, help="SMA* strategy", metavar="HEURISTIC")
 
     return parser.parse_args(args)
