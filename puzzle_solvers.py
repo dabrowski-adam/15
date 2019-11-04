@@ -4,6 +4,7 @@ from functools import reduce
 from itertools import chain
 from math import inf
 
+from puzzle_utils import Puzzle
 from state_vertex import StateVertex
 from utils import first_true
 
@@ -12,7 +13,7 @@ from utils import first_true
 # breadth-first search
 #
 
-def bfs(puzzle, order: str):
+def bfs(puzzle: Puzzle, order: str):
     root = StateVertex(puzzle)
     visited, stack = {root}, deque([root])
 
@@ -33,7 +34,7 @@ def bfs(puzzle, order: str):
 # depth-first search
 #
 
-def dfs(puzzle, order: str):
+def dfs(puzzle: Puzzle, order: str):
     raise NotImplementedError
 
 
@@ -50,7 +51,7 @@ def _dls(vertex, depth, order="R"):
     return first_true(found, default=None), first_true(remaining)
 
 
-def idfs(puzzle, order: str, max_depth=30):
+def idfs(puzzle: Puzzle, order: str, max_depth=30):
     root = StateVertex(puzzle)
 
     for depth in range(max_depth + 1):
@@ -65,7 +66,7 @@ def idfs(puzzle, order: str, max_depth=30):
 # best-first
 #
 
-def bf(puzzle, heuristic: int):
+def bf(puzzle: Puzzle, heuristic: int):
     raise NotImplementedError
 
 
@@ -124,7 +125,7 @@ heuristics = {
 }
 
 
-def astar(puzzle, heuristic: int):
+def astar(puzzle: Puzzle, heuristic: int):
     h = heuristics[heuristic]
     root = StateVertex(puzzle)
 
@@ -162,5 +163,5 @@ def astar(puzzle, heuristic: int):
 # SMA*
 #
 
-def sma(puzzle, heuristic: int):
+def sma(puzzle: Puzzle, heuristic: int):
     raise NotImplementedError

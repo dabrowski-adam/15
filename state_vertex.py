@@ -1,6 +1,6 @@
 from random import shuffle
 
-from puzzle_utils import apply_move, is_solved
+from puzzle_utils import apply_move, is_solved, Puzzle
 
 
 class StateVertexIterator:
@@ -27,7 +27,7 @@ def _random_order():
 
 
 class StateVertex:
-    def __init__(self, puzzle, parent=None, move=None):
+    def __init__(self, puzzle: Puzzle, parent: 'StateVertex' = None, move: str = None):
         self.puzzle = puzzle
         self.parent = parent
         self.move = move
