@@ -57,7 +57,7 @@ def parse(args):
     first_line = standard_input.readline()  # two integer values "R C"
     row_count, column_count = [int(string) for string in first_line.split()]
     other_lines = [standard_input.readline() for _ in range(row_count)]
-    puzzle = [line.split() for line in other_lines]
+    puzzle = [list(map(int, line.split())) for line in other_lines]
 
     standard_input.close()
 
