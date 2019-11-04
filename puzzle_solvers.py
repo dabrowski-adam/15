@@ -74,7 +74,7 @@ def bf(puzzle: Puzzle, heuristic: int):
 # A*
 #
 
-def _d(current, neighbor):
+def _score_path(current, neighbor):
     return len(neighbor.path())
 
 
@@ -126,35 +126,32 @@ heuristics = {
 
 
 def astar(puzzle: Puzzle, heuristic: int):
-    h = heuristics[heuristic]
+    score_heuristic = heuristics[heuristic]
     root = StateVertex(puzzle)
 
-    open_set = {root}
-    # came_from = {}
+    discovered = {root}
+    base_score, heuristic_score = defaultdict(lambda: inf), defaultdict(lambda: inf)
 
-    gscore = defaultdict(lambda: inf)
-    gscore[root] = 0
+    base_score[root] = 0
+    heuristic_score[root] = score_heuristic(root)
 
-    fscore = defaultdict(lambda: inf)
-    fscore[root] = h(root)
-
-    while open_set:
-        current = reduce(lambda a, b: b if fscore[b] < fscore[a] else a, open_set)
+    while discovered:
+        current = min(discovered, key=lambda vertex: heuristic_score[vertex])
 
         if current.is_solved():
             return current.path()
 
-        open_set.remove(current)
+        discovered.remove(current)
 
         for neighbor in current.neighbors():
-            tentative_gscore = gscore[current] + _d(current, neighbor)
+            tentative_base_score = base_score[current] + _score_path(current, neighbor)
 
-            if tentative_gscore < gscore[neighbor]:
-                gscore[neighbor] = tentative_gscore
-                fscore[neighbor] = gscore[neighbor] + h(neighbor)
+            if tentative_base_score < base_score[neighbor]:
+                base_score[neighbor] = tentative_base_score
+                heuristic_score[neighbor] = base_score[neighbor] + score_heuristic(neighbor)
 
-                if neighbor not in open_set:
-                    open_set.add(neighbor)
+                if neighbor not in discovered:
+                    discovered.add(neighbor)
 
     return None
 
