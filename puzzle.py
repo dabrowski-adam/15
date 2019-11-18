@@ -2,6 +2,9 @@
 
 import io
 import sys
+import time
+import os
+import psutil
 
 from parser import parse
 from puzzle_solvers import bfs, dfs, idfs, bf, astar, sma
@@ -21,6 +24,27 @@ def find_solution(puzzle, strategy, parameter):
     return solvers[strategy](puzzle, parameter)
 
 
+def profile(function):
+    def profiled(*args, **kwargs):
+        process = psutil.Process(os.getpid())
+        memory_before = process.memory_info().rss
+        time_before = time.monotonic()
+
+        result = function(*args, **kwargs)
+
+        time_after = time.monotonic()
+        memory_after = process.memory_info().rss
+
+        time_diff = (time_after - time_before) * 1000
+        memory_diff = (memory_after - memory_before) / 1000
+
+        print(f"Elapsed time: {time_diff} ms\nMemory used: {memory_diff} kB")
+
+        return result
+
+    return profiled
+
+
 def main():
     arguments = sys.argv[1:]
     options = parse(arguments)
@@ -28,9 +52,11 @@ def main():
     puzzle = options["puzzle"]
     strategy = options["strategy"]
     parameter = options["parameter"]
+    verbose = options["verbose"]
     output: io.TextIOWrapper = options["output"]
 
-    solution = find_solution(puzzle, strategy, parameter)
+    profiled_find_solution = profile(find_solution) if verbose else find_solution
+    solution = profiled_find_solution(puzzle, strategy, parameter)
     show_solution(solution, output)
 
     #  solved_puzzle = apply_solution(puzzle, solution)

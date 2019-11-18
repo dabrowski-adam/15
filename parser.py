@@ -24,6 +24,8 @@ def parse_args(args):
         metavar="FILE",
     )
 
+    parser.add_argument("-v", "--verbose", action="store_true", help="print execution time and memory usage")
+
     parser.add_argument("-b", "--bfs", help="breadth-first search", metavar="ORDER")
     parser.add_argument("-d", "--dfs", help="depth-first search", metavar="ORDER")
     parser.add_argument("-i", "--idfs", help="iterative deepening DFS", metavar="ORDER")
@@ -51,6 +53,7 @@ def choose_strategy(options):
 def parse(args):
     options = vars(parse_args(args))
     strategy, parameter = choose_strategy(options)
+    verbose = options["verbose"]
     standard_input: io.TextIOWrapper = options["input"]
     standard_output: io.TextIOWrapper = options["output"]
 
@@ -67,5 +70,6 @@ def parse(args):
         "puzzle": puzzle,
         "strategy": strategy,
         "parameter": parameter,
+        "verbose": verbose,
         "output": standard_output,
     }
