@@ -50,7 +50,7 @@ def _dls(vertex, depth, order="R"):
     return first_true(found, default=None), first_true(remaining)
 
 
-def idfs(puzzle: Puzzle, order: str, max_depth=30):
+def idfs(puzzle: Puzzle, order: str, max_depth=9):
     root = StateVertex(puzzle)
 
     for depth in range(max_depth + 1):
