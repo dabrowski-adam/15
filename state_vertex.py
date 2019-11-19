@@ -1,4 +1,5 @@
 from random import shuffle
+from itertools import chain
 
 from puzzle_utils import apply_move, is_solved, Puzzle
 
@@ -31,6 +32,14 @@ class StateVertex:
         self.puzzle = puzzle
         self.parent = parent
         self.move = move
+
+    def __hash__(self):
+        numbers = chain(*self.puzzle)
+        string = ''.join(str(n) for n in numbers)
+        return hash(string)
+
+    def __eq__(self, other):
+        return self.puzzle == other.puzzle
 
     def __iter__(self):
         return StateVertexIterator(self)
