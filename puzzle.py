@@ -8,7 +8,7 @@ import psutil
 
 from parser import parse
 from puzzle_solvers import bfs, dfs, idfs, bf, astar, sma
-from puzzle_utils import show_solution
+from puzzle_utils import show_solution, is_solvable
 
 
 def find_solution(puzzle, strategy, parameter):
@@ -21,7 +21,7 @@ def find_solution(puzzle, strategy, parameter):
         "sma": sma,
     }
 
-    return solvers[strategy](puzzle, parameter)
+    return solvers[strategy](puzzle, parameter) if is_solvable(puzzle) else None
 
 
 def profile(function):

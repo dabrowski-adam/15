@@ -18,7 +18,7 @@ def swap_puzzle_pieces(puzzle: Puzzle, y1, x1, y2, x2):
 
 
 def apply_move(puzzle: Puzzle, move: str):
-    zero_pos, = [(y, row.index(0)) for y, row in enumerate(puzzle) if 0 in row]
+    zero_pos = next(((y, row.index(0)) for y, row in enumerate(puzzle) if 0 in row))
     y1, x1 = zero_pos
 
     y2, x2 = (y1, x1 + 1) if move == "L" \
@@ -48,6 +48,43 @@ def is_solved(puzzle: Puzzle):
 def check_solution(puzzle: Puzzle, solution: str):
     solved_puzzle = apply_solution(puzzle, solution)
     return is_solved(solved_puzzle)
+
+
+def count_inversions(puzzle: Puzzle):
+    pieces = list(filter(None, chain(*puzzle)))
+    length = len(pieces)
+
+    # todo: make it pretty and functional
+    inversions = 0
+    for i in range(length):
+        for j in range(i + 1, length):
+            if pieces[i] > pieces[j]:
+                inversions += 1
+
+    return inversions
+
+
+def is_solvable(puzzle: Puzzle):
+    n = len(puzzle)
+    inversions = count_inversions(puzzle)
+
+    if n % 2 == 1:
+        if inversions % 2 == 0:
+            return True
+    else:
+        zero_y = next((y for y, row in enumerate(puzzle) if 0 in row), None)
+
+        if zero_y is None:
+            return False
+
+        if zero_y % 2 == 1:
+            if inversions % 2 == 0:
+                return True
+        else:
+            if inversions % 2 == 1:
+                return True
+
+    return False
 
 
 def show_solution(solution: str, output: io.TextIOWrapper):
