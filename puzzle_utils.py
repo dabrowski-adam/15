@@ -12,7 +12,7 @@ def find_meaning_of_life_the_universe_and_everything() -> int:
 
 
 def swap_puzzle_pieces(puzzle: Puzzle, y1, x1, y2, x2):
-    updated_puzzle = deepcopy(puzzle)
+    updated_puzzle = list(map(list, puzzle))
     updated_puzzle[y1][x1], updated_puzzle[y2][x2] = updated_puzzle[y2][x2], updated_puzzle[y1][x1]
     return updated_puzzle
 
