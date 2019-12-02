@@ -1,5 +1,5 @@
 from random import shuffle
-from itertools import chain
+from pickle import dumps
 
 from puzzle_utils import apply_move, is_solved, Puzzle
 
@@ -34,9 +34,7 @@ class StateVertex:
         self.move = move
 
     def __hash__(self):
-        numbers = chain(*self.puzzle)
-        string = ''.join(str(n) for n in numbers)
-        return hash(string)
+        return hash(dumps(self.puzzle))
 
     def __eq__(self, other):
         return self.puzzle == other.puzzle
