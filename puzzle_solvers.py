@@ -34,7 +34,20 @@ def bfs(puzzle: Puzzle, order: str):
 #
 
 def dfs(puzzle: Puzzle, order: str):
-    raise NotImplementedError
+    root = StateVertex(puzzle)
+    visited, stack = set(), deque([root])
+
+    while stack:
+        vertex = stack.pop()
+        if vertex.is_solved():
+            return vertex.path()
+
+        if vertex not in visited:
+            visited.add(vertex)
+            for neighbor in vertex.neighbors(order):
+                stack.append(neighbor)
+
+    return None
 
 
 # # # # # # # # # # # # #
