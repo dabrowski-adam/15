@@ -31,9 +31,13 @@ class StateVertex:
         self.puzzle = puzzle
         self.parent = parent
         self.move = move
+        self._hash = None
 
     def __hash__(self):
-        return hash(tuple(map(tuple, self.puzzle)))
+        if not self._hash:
+            self._hash = hash(tuple(map(tuple, self.puzzle)))
+
+        return self._hash
 
     def __eq__(self, other):
         return self.puzzle == other.puzzle
