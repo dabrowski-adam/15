@@ -2,6 +2,7 @@ from collections import defaultdict
 from collections import deque
 from itertools import chain
 from math import inf
+from heapdict import heapdict
 
 from puzzle_utils import Puzzle
 from state_vertex import StateVertex
@@ -142,19 +143,18 @@ def astar(puzzle: Puzzle, heuristic: int):
     score_heuristic = heuristics[heuristic]
     root = StateVertex(puzzle)
 
-    discovered = {root}
+    discovered = heapdict()
     base_score, heuristic_score = defaultdict(lambda: inf), defaultdict(lambda: inf)
 
     base_score[root] = 0
     heuristic_score[root] = score_heuristic(root)
+    discovered[root] = heuristic_score[root]
 
     while discovered:
-        current = min(discovered, key=lambda vertex: heuristic_score[vertex])
+        (current, _score) = discovered.popitem()
 
         if current.is_solved():
             return current.path()
-
-        discovered.remove(current)
 
         for neighbor in current.neighbors():
             tentative_base_score = base_score[current] + _score_path(current, neighbor)
@@ -164,7 +164,7 @@ def astar(puzzle: Puzzle, heuristic: int):
                 heuristic_score[neighbor] = base_score[neighbor] + score_heuristic(neighbor)
 
                 if neighbor not in discovered:
-                    discovered.add(neighbor)
+                    discovered[neighbor] = heuristic_score[neighbor]
 
     return None
 
