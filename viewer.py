@@ -18,7 +18,7 @@ def delete_last_line():
 
 
 def clear(puzzle):
-    for i in range(len(puzzle)):
+    for i in range(len(puzzle) * 2):
         delete_last_line()
 
 

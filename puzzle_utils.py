@@ -94,7 +94,10 @@ def show_solution(solution: str, output: io.TextIOWrapper):
 
 
 def show_puzzle(puzzle: Puzzle, output: io.TextIOWrapper):
+    max_number = len(puzzle) * len(puzzle) - 1
+    width = len(str(max_number))
+
     for y in range(len(puzzle)):
         for x in range(len(puzzle[y])):
-            output.write(str(puzzle[y][x]))
-        output.write("\n")
+            output.write(str(puzzle[y][x]).rjust(width, " ") + " ")
+        output.write("\n\n")
