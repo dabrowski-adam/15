@@ -25,9 +25,12 @@ def clear(puzzle):
 def preview(puzzle: Puzzle, solution: str):
     position = 0
     show_puzzle(puzzle, sys.stdout)
-    print(f"\nSolution has {len(solution)} steps.\nPress D to advance, A to go back...")
+    # print(f"\nSolution has {len(solution)} steps.\nPress D to advance, A to go back...")
+    print("")
+    print(f"Step {position} out of {len(solution)}.")
+    print(f"Next move: {solution[position]}" if position < len(solution) else "Finished!")
 
-    while position != len(solution):
+    while position <= len(solution):
         if kb.kbhit():
             key = kb.getch()
 
@@ -36,6 +39,9 @@ def preview(puzzle: Puzzle, solution: str):
             elif key == 'a' and position > 0:
                 position -= 1
             else:
+                continue
+
+            if position > len(solution):
                 continue
 
             delete_last_line()
@@ -47,8 +53,8 @@ def preview(puzzle: Puzzle, solution: str):
             show_puzzle(apply_solution(puzzle, moves), sys.stdout)
 
             print("")
-            print(f"Step {min(position+1, len(solution))} out of {len(solution)}.")
-            print(f"Next move: {solution[position+1]}" if position < len(solution)-1 else "Finished!")
+            print(f"Step {position} out of {len(solution)}.")
+            print(f"Next move: {solution[position]}" if position < len(solution) else "Finished!")
 
     kb.set_normal_term()
 
