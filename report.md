@@ -51,8 +51,21 @@ Different approaches yielded the following results (average of 5 runs):
 | **BFS (LRUD)**  | DLUUL  | 5 | 1.335 | 110.592 |
 | **BFS (DLUR)**  | DLUUL  | 5 | 0.875 | 69.632 |
 | **DFS (Random)** | DLUURDDLUU... | 43411 | 4877.929  | 17399.808 |
+| **DFS (DLUR)** | ULLDRRULLD... | 99443 | 3676.788  | 28573.696 |
 | **DFS (RDLU)** | ULLDDRUULD... | 1059 | 24.263  | 1466.368 |
+| **DFS (RULD)** | DLLUURDDLU... | 29 | 0.706  | 69.632 |
 | **IDFS (Random)** | DLUUL | 5 | 8.969  | 40.960 |
 | **A\* (Dijkstra)** | DLUUL | 5 | 1.411  | 114.688 |
 | **A\* (Hamming)** | DLUUL | 5 | 1.600  | 53.248 |
 | **A\* (Manhattan)** | DLUUL | 5 | 1.348  | 45.056 |
+
+
+As can be seen in the results, the order in which neighbors are checked can greatly impact the time to find the result. 
+
+And even though it seemed that choosing at random would yield stable, albeit not impressive results, it fared the worst. Perhaps speed of the randomization method is to blame.
+
+We can also clearly see that depth-first search performed abysmally compared to breadth-first. Iterative deepening DFS is still behind, but much closer.
+
+On this input A* performed comparably to BFS. It can be noted that when using heuristics the memory usage decreased in half.
+
+ 
