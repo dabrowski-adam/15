@@ -18,6 +18,8 @@ cat sample_input.txt | ./puzzle.py
 
 # How to build
 
+[![Build Status](https://travis-ci.org/dabrowski-adam/15.svg?branch=master)](https://travis-ci.org/dabrowski-adam/15)
+
 1. Use the virtual environment
 
    ```bash
