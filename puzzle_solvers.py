@@ -45,7 +45,8 @@ def dfs(puzzle: Puzzle, order: str):
         if vertex not in visited:
             visited.add(vertex)
             for neighbor in vertex.neighbors(order):
-                stack.append(neighbor)
+                if neighbor not in visited:
+                    stack.append(neighbor)
 
     return None
 
