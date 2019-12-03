@@ -74,8 +74,8 @@ As can be seen in the results, the order in which neighbors are checked can grea
 
 And even though it seemed that choosing at random would yield stable, albeit not impressive results, it fared the worst. Perhaps speed of the randomization method is to blame.
 
-We can also clearly see that depth-first search performed abysmally compared to breadth-first. Iterative deepening DFS is still behind, but much closer.
+We can also clearly see that depth-first search performed abysmally compared to breadth-first. Iterative deepening DFS is still behind, but much closer. An advantage of the iterative deepening DFS is a smaller memory footprint compared to BFS.
 
-On this input A* performed comparably to BFS. It can be noted that when using heuristics the memory usage decreased in half.
+On this input A* performed comparably to BFS. Using heuristics speeds up the search. It can be noted that when using heuristics the memory usage decreased in half.
 
  
