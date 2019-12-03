@@ -34,10 +34,20 @@ Any NxN puzzle is solvable if:
 
 Otherwise there exist no solutions.
 
+# Strategies
+
+We implemented breadth-first search, depth-first search, iterative deepening depth-first search and A*.
+
+A* supports the following heuristics:
+
+- h(x)=0 heuristic – which turns it into the Dijkstra algorithm
+- Hamming distance – the number of positions at which the corresponding tiles are different
+- Manhattan distance – the distance between two points measured along axes at right angles
+
 # Benchmarks
 
- Given the following 3x3 puzzle:
- 
+Given the following 3x3 puzzle:
+
 | **4**  | **1**  | **3**  |
 | :----: | :----: | :----: |
 |        | **2**  | **6**  |
