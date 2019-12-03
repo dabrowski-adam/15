@@ -96,5 +96,5 @@ def show_solution(solution: str, output: io.TextIOWrapper):
 def show_puzzle(puzzle: Puzzle, output: io.TextIOWrapper):
     for y in range(len(puzzle)):
         for x in range(len(puzzle[y])):
-            output.write(puzzle[y][x])
+            output.write(str(puzzle[y][x]))
         output.write("\n")
